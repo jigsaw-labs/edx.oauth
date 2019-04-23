@@ -12,7 +12,7 @@ https://manage.auth0.com/dashboard/us/jigsawlabs/applications/Z9MehfTgspn1HOeoWz
     SECRET = 'QL7viKKrNQn2nMdmdYJnBM0Q9n8DNqyUhltX8deT-cphOtmKSQulzeMO7TTMufEC'
 
 """
-from urllib import request
+from urllib2 import urlopen
 from jose import jwt
 from social_core.backends.oauth import BaseOAuth2
 
@@ -48,7 +48,7 @@ class Auth0(BaseOAuth2):
     def get_user_details(self, response):
         # Obtain JWT and the keys to validate the signature
         id_token = response.get('id_token')
-        jwks = request.urlopen(self.BASE_URL + '/.well-known/jwks.json')
+        jwks = urlopen(self.BASE_URL + '/.well-known/jwks.json')
         issuer = self.BASE_URL + '/'
         audience = self.KEY  # CLIENT_ID
         payload = jwt.decode(id_token, jwks.read(), algorithms=['RS256'], audience=audience, issuer=issuer)
