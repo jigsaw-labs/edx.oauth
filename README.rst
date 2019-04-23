@@ -8,8 +8,10 @@ Overview
 A Python Social Auth backend for Auth0, mostly used for Open edX but can be used elsewhere.
 This package was originally cloned from https://github.com/appsembler/trinity-oauth-backend.
 
+The repo for this code package is located here: https://github.com/jigsaw-labs/edx.oauth
 The Auth0 app is located here: https://manage.auth0.com/dashboard/us/jigsawlabs/applications/Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ/settings
 This backend largely follows the Django setup instructions located here: https://manage.auth0.com/dashboard/us/jigsawlabs/applications/Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ/quickstart
+
 
 This package is structured so that it can be uploaded to PyPI and installed using pip or easyinstall.
 More detail here: https://python-packaging.readthedocs.io/en/latest/minimal.html
