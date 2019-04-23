@@ -23,8 +23,8 @@ class Auth0(BaseOAuth2):
 
     SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
     SOCIAL_AUTH_AUTH0_DOMAIN = 'jigsawlabs.auth0.com'
-    SOCIAL_AUTH_AUTH0_KEY = 'Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ'
-    SOCIAL_AUTH_AUTH0_SECRET = 'QL7viKKrNQn2nMdmdYJnBM0Q9n8DNqyUhltX8deT-cphOtmKSQulzeMO7TTMufEC'
+    #SOCIAL_AUTH_AUTH0_KEY = 'Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ'
+    #SOCIAL_AUTH_AUTH0_SECRET = 'QL7viKKrNQn2nMdmdYJnBM0Q9n8DNqyUhltX8deT-cphOtmKSQulzeMO7TTMufEC'
 
     SOCIAL_AUTH_AUTH0_SCOPE = [
     'openid',
@@ -47,9 +47,18 @@ class Auth0(BaseOAuth2):
         jwks = urlopen(self.BASE_URL + '/.well-known/jwks.json')
         issuer = self.BASE_URL + '/'
         audience = self.setting('KEY')  # CLIENT_ID
-        payload = jwt.decode(id_token, jwks.read(), algorithms=['RS256'], audience=audience, issuer=issuer)
+        payload = jwt.decode(id_token,
+                            jwks.read(),
+                            algorithms=['RS256'],
+                            audience=audience,
+                            issuer=issuer)
 
+        fullname, first_name, last_name = self.get_user_names(payload['name'])
         return {'username': payload['nickname'],
-                'first_name': payload['name'],
+                'email': payload['email'],
+                'email_verified': payload.get('email_verified', False),
+                'fullname': fullname,
+                'first_name': first_name,
+                'last_name': last_name,
                 'picture': payload['picture'],
                 'user_id': payload['sub']}
