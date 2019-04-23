@@ -3,7 +3,7 @@ Auth0 implementation based on:
 https://manage.auth0.com/dashboard/us/jigsawlabs/applications/Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ/quickstart
 """
 from jose import jwt
-from .oauth import BaseOAuth2
+from social_core.backends.oauth import BaseOAuth2
 
 from logging import getLogger
 logger = getLogger(__name__)
@@ -97,6 +97,6 @@ class Auth0OAuth2(BaseOAuth2):
 
     def get_key_and_secret(self):
         if self.DEBUG_LOG:
-            logger.info('get_key_and_secret() - client_id: {}'.format(settings.SOCIAL_AUTH_AUTH0OAUTH2_KEY))
+            logger.info('get_key_and_secret() - client_id: {}'.format(self.SOCIAL_AUTH_AUTH0OAUTH2_KEY))
 
-        return (settings.SOCIAL_AUTH_AUTH0OAUTH2_KEY, settings.SOCIAL_AUTH_AUTH0OAUTH2_SECRET)
+        return (self.SOCIAL_AUTH_AUTH0OAUTH2_KEY, self.SOCIAL_AUTH_AUTH0OAUTH2_SECRET)
