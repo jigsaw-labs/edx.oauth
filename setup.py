@@ -31,15 +31,15 @@ setup(
     description=('An OAuth backend for auth0, '
                  'mostly used for Open edX but can be used elsewhere.'),
     long_description=README,
-    author='Lawrence McDaniel (credit to Omar Al-Ithawi, omar@appsembler.com)',
+    author='Lawrence McDaniel',
     author_email='lpm0073@gmail.com',
-    url='https://github.com/lpm0073/edx-oauth-nyspma',
+    url='https://github.com/jigsaw-labs/edx.oauth.git',
     packages=[
-        'cmeonline_backends',
+        'jigsawlabs_backends',
     ],
     include_package_data=True,
     zip_safe=False,
-    keywords='OAuth NYSPMA',
+    keywords='OAuth Auth0',
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',

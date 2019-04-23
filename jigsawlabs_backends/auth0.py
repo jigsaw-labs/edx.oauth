@@ -3,9 +3,12 @@ Auth0 implementation based on:
 https://auth0.com/docs/quickstart/webapp/django/01-login
 """
 from jose import jwt
-
 from .oauth import BaseOAuth2
 
+from logging import getLogger
+logger = getLogger(__name__)
+
+DEBUG_LOG = True
 
 class Auth0OAuth2(BaseOAuth2):
     """Auth0 OAuth authentication backend"""
@@ -22,13 +25,22 @@ class Auth0OAuth2(BaseOAuth2):
                                                 path=path)
 
     def authorization_url(self):
-        return self.api_path('authorize')
+        url = self.api_path('authorize')
+        if self.DEBUG_LOG:
+            logger.info('authorization_url(): {}'.format(url))
+        return url
 
     def access_token_url(self):
-        return self.api_path('oauth/token')
+        url = self.api_path('oauth/token')
+        if self.DEBUG_LOG:
+            logger.info('access_token_url(): {}'.format(url))
+        return url
 
     def get_user_id(self, details, response):
         """Return current user id."""
+        if self.DEBUG_LOG:
+            logger.info('get_user_id(): {}'.format(details['user_id']))
+        return url
         return details['user_id']
 
     def get_user_details(self, response):
