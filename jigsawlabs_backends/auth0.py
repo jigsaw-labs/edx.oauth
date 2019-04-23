@@ -18,10 +18,22 @@ class Auth0OAuth2(BaseOAuth2):
     EXTRA_DATA = [
         ('picture', 'picture')
     ]
+    # mcdaniel: configure backend
+    SOCIAL_AUTH_AUTH0_SCOPE = [
+        'openid',
+        'profile'
+    ]
+
+    SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
+    SOCIAL_AUTH_AUTH0OAUTH2_DOMAIN = 'jigsawlabs.auth0.com'
+    SOCIAL_AUTH_AUTH0OAUTH2_KEY = 'Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ'
+    SOCIAL_AUTH_AUTH0OAUTH2_SECRET = 'QL7viKKrNQn2nMdmdYJnBM0Q9n8DNqyUhltX8deT-cphOtmKSQulzeMO7TTMufEC'
+    SOCIAL_AUTH_AUTH0OAUTH2_LOGIN_URL = '/login/auth0'
+    SOCIAL_AUTH_AUTH0OAUTH2_LOGIN_REDIRECT_URL = '/dashboard'
 
     def api_path(self, path=''):
         """Build API path for Auth0 domain"""
-        return 'https://{domain}/{path}'.format(domain=self.setting('DOMAIN'),
+        return 'https://{domain}/{path}'.format(domain=self.SOCIAL_AUTH_AUTH0OAUTH2_DOMAIN,
                                                 path=path)
 
     def authorization_url(self):
@@ -48,7 +60,7 @@ class Auth0OAuth2(BaseOAuth2):
         id_token = response.get('id_token')
         jwks = self.get_json(self.api_path('.well-known/jwks.json'))
         issuer = self.api_path()
-        audience = self.setting('KEY')  # CLIENT_ID
+        audience = self.SOCIAL_AUTH_AUTH0OAUTH2_KEY  # CLIENT_ID
         payload = jwt.decode(id_token,
                              jwks,
                              algorithms=['RS256'],
@@ -63,3 +75,9 @@ class Auth0OAuth2(BaseOAuth2):
                 'last_name': last_name,
                 'picture': payload['picture'],
                 'user_id': payload['sub']}
+
+    def get_key_and_secret(self):
+        if self.DEBUG_LOG:
+            logger.info('get_key_and_secret() - client_id: {}'.format(settings.SOCIAL_AUTH_AUTH0OAUTH2_KEY))
+
+        return (settings.SOCIAL_AUTH_AUTH0OAUTH2_KEY, settings.SOCIAL_AUTH_AUTH0OAUTH2_SECRET)
