@@ -1,11 +1,11 @@
-NYSPMA OAuth2 Backend
+Auth0 OAuth2 Backend
 =============================
 
 
 Overview
 --------
 
-A Python Social Auth backend for NYSPMA, mostly used for Open edX but can be used elsewhere.
+A Python Social Auth backend for Auth0, mostly used for Open edX but can be used elsewhere.
 This package was originally cloned from https://github.com/appsembler/trinity-oauth-backend.
 
 This package is structured so that it can be uploaded to PyPI and installed using pip or easyinstall.
@@ -23,10 +23,10 @@ The high-level installation process exactly follows the Open edX documentation: 
 
     sudo -H -u edxapp bash
     source /edx/app/edxapp/edxapp_env
-    /edx/bin/pip.edxapp install --upgrade git+https://github.com/cmeonline/edx-oauth.git
+    /edx/bin/pip.edxapp install --upgrade git+https://github.com/jigsaw-labs/edx.oauth.git
 
     # Verify that installation was successful.
-    # Look for pip package: edx-oauth-nyspma (0.1.0)
+    # Look for pip package: edx-oauth-Auth0 (0.1.0)
     pip list installed
 
 This package can alternatively be installed directly from its github repo using syntax as follows:
@@ -35,7 +35,7 @@ This package can alternatively be installed directly from its github repo using 
 
     setup(
     ...
-      dependency_links=['https://github.com/cmeonline/edx-oauth.git']
+      dependency_links=['https://github.com/jigsaw-labs/edx.oauth.git']
     ...
     )
 
@@ -45,19 +45,17 @@ This package can alternatively be installed directly from its github repo using 
 ::
 
   "THIRD_PARTY_AUTH_BACKENDS": [
-            "cmeonline_backends.nyspma.NYSPMAOAuth2"
+            "jigsawlabs_backends.auth0.Auth0OAuth2"
         ]
 
 **3. Add configuration parameters to /edx/app/edxapp/lms.env.json**
 
 ::
 
-  "NYSPMA_BACKEND_CLIENT_ID" : "081b8d1---> AN EXAMPLE KEY ---->081b8d11d991702e4dc9f5c928e3d53e",
-  "NYSPMA_BACKEND_CLIENT_SECRET" : "123456789---> AN EXAMPLE SECRET ---->d16df7396bd16df7396bd16df7",
-  "NYSPMA_BACKEND_BASE_URL" : "https://associationdatabase.com",
-  "NYSPMA_BACKEND_AUTHORIZATION_URL" : "/oauth/authorize",
-  "NYSPMA_BACKEND_ACCESS_TOKEN_URL" : "/oauth/token",
-  "NYSPMA_BACKEND_USER_QUERY" : "/api/user?",
+  "AUTH0_BACKEND_CLIENT_ID" : "081b8d1---> AN EXAMPLE KEY ---->081b8d11d991702e4dc9f5c928e3d53e",
+  "AUTH0_BACKEND_CLIENT_SECRET" : "123456789---> AN EXAMPLE SECRET ---->d16df7396bd16df7396bd16df7",
+  "AUTH0_BACKEND_BASE_URL" : "https://associationdatabase.com",
+  "AUTH0_BACKEND_USER_QUERY" : "/api/user?",
 
 
 **4. Set Open edX LMS app feature flags in /edx/app/edxapp/lms.env.json**
@@ -74,12 +72,10 @@ This package can alternatively be installed directly from its github repo using 
 
 ::
 
-  NYSPMA_BACKEND_CLIENT_ID = ENV_TOKENS.get('NYSPMA_BACKEND_CLIENT_ID', None)
-  NYSPMA_BACKEND_CLIENT_SECRET = ENV_TOKENS.get('NYSPMA_BACKEND_CLIENT_SECRET', None)
-  NYSPMA_BACKEND_BASE_URL = ENV_TOKENS.get('NYSPMA_BACKEND_BASE_URL', 'https://associationdatabase.com')
-  NYSPMA_BACKEND_AUTHORIZATION_URL = ENV_TOKENS.get('NYSPMA_BACKEND_AUTHORIZATION_URL', '/oauth/authorize')
-  NYSPMA_BACKEND_ACCESS_TOKEN_URL = ENV_TOKENS.get('NYSPMA_BACKEND_ACCESS_TOKEN_URL', '/oauth/token')
-  NYSPMA_BACKEND_USER_QUERY = ENV_TOKENS.get('NYSPMA_BACKEND_USER_QUERY', '/api/user?')
+  AUTH0_BACKEND_CLIENT_ID = ENV_TOKENS.get('AUTH0_BACKEND_CLIENT_ID', None)
+  AUTH0_BACKEND_CLIENT_SECRET = ENV_TOKENS.get('AUTH0_BACKEND_CLIENT_SECRET', None)
+  AUTH0_BACKEND_BASE_URL = ENV_TOKENS.get('AUTH0_BACKEND_BASE_URL', 'https://associationdatabase.com')
+  AUTH0_BACKEND_USER_QUERY = ENV_TOKENS.get('AUTH0_BACKEND_USER_QUERY', '/api/user?')
 
 
 **6. Register a Third Party Authorization configuration profile in Django Admin**
