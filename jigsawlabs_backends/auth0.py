@@ -1,6 +1,6 @@
 """
 Auth0 implementation based on:
-https://auth0.com/docs/quickstart/webapp/django/01-login
+https://manage.auth0.com/dashboard/us/jigsawlabs/applications/Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ/quickstart
 """
 from jose import jwt
 from .oauth import BaseOAuth2
@@ -56,6 +56,23 @@ class Auth0OAuth2(BaseOAuth2):
         return details['user_id']
 
     def get_user_details(self, response):
+        dict = {'username': 'nickname',
+                'email': 'email',
+                'email_verified': 'email_verified'
+                'fullname': 'fullname',
+                'first_name': 'first_name',
+                'last_name': 'last_name',
+                'picture': 'picture',
+                'user_id': 'user_id'}
+
+        if self.DEBUG_LOG:
+            logger.info('get_user_details(): {}'.format(dict))
+        return dict
+
+
+
+    """
+    def get_user_details(self, response):
         # Obtain JWT and the keys to validate the signature
         id_token = response.get('id_token')
         jwks = self.get_json(self.api_path('.well-known/jwks.json'))
@@ -75,6 +92,8 @@ class Auth0OAuth2(BaseOAuth2):
                 'last_name': last_name,
                 'picture': payload['picture'],
                 'user_id': payload['sub']}
+
+    """
 
     def get_key_and_secret(self):
         if self.DEBUG_LOG:
