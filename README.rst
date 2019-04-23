@@ -77,28 +77,13 @@ Django model configuration: <LMS URI>/admin/third_party_auth/oauth2providerconfi
 .. image:: docs/django-oauth-config-2.png
 
 
-Identity Provider System (https://associationdatabase.com)
+Identity Provider System (https://manage.auth0.com)
 --------
-For this module to work it is first necessary to create an oauth application on the Identity Provider system associationdatabase.com.
-Key contacts for this platform are:
-  - David Zachrich dave@tcssoftware.com
-  - Tim Rorris tim@tcssoftware.com
+For this module to work it is first necessary to create an oauth application on the Identity Provider system manage.auth0.com.
 For reference, the current settings are as follows.
 
 .. image:: docs/manage.auth0.com.png
 
-
-SSO Endpoints
--------------
-The backend consumes the following URLs:
-
--  **User Query** ``https://associationdatabase.com/api/user?``
--  **Registration:** ``https://associationdatabase.com/register``
--  **Login:** ``DO NOT YET HAVE THIS VALUE.``
--  ``AUTHORIZATION_URL``:
-   ``https://associationdatabase.com/oauth/authorize``
--  ``ACCESS_TOKEN_URL``:
-   ``https://associationdatabase.com/oauth/token``
 
 The OAuth server provides the following information about the user:
 
