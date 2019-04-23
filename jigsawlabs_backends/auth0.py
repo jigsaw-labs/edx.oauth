@@ -2,15 +2,6 @@
 Auth0 implementation based on:
 https://manage.auth0.com/dashboard/us/jigsawlabs/applications/Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ/quickstart
 
-    BASE_URL = 'https://jigsawlabs.auth0.com'
-    AUTHORIZATION_URL = BASE_URL + '/oauth/authorize'
-    ACCESS_TOKEN_URL = BASE_URL + '/oauth/token'
-    USER_QUERY = BASE_URL + '/api/user?'
-
-    SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
-    KEY = 'Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ'
-    SECRET = 'QL7viKKrNQn2nMdmdYJnBM0Q9n8DNqyUhltX8deT-cphOtmKSQulzeMO7TTMufEC'
-
 """
 from urllib2 import urlopen
 from jose import jwt
@@ -25,6 +16,11 @@ class Auth0(BaseOAuth2):
     EXTRA_DATA = [
         ('picture', 'picture')
     ]
+    BASE_URL = 'https://jigsawlabs.auth0.com'
+    AUTHORIZATION_URL = BASE_URL + '/oauth/authorize'
+    ACCESS_TOKEN_URL = BASE_URL + '/oauth/token'
+    USER_QUERY = BASE_URL + '/api/user?'
+
     SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
     SOCIAL_AUTH_AUTH0_DOMAIN = 'jigsawlabs.auth0.com'
     SOCIAL_AUTH_AUTH0_KEY = 'Z9MehfTgspn1HOeoWzu0RO5UvhS5i9EZ'
@@ -50,7 +46,7 @@ class Auth0(BaseOAuth2):
         id_token = response.get('id_token')
         jwks = urlopen(self.BASE_URL + '/.well-known/jwks.json')
         issuer = self.BASE_URL + '/'
-        audience = self.KEY  # CLIENT_ID
+        audience = self.setting('KEY')  # CLIENT_ID
         payload = jwt.decode(id_token, jwks.read(), algorithms=['RS256'], audience=audience, issuer=issuer)
 
         return {'username': payload['nickname'],
