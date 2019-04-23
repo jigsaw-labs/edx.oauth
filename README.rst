@@ -85,7 +85,7 @@ Key contacts for this platform are:
   - Tim Rorris tim@tcssoftware.com
 For reference, the current settings are as follows.
 
-.. image:: docs/associationdatabase.com-oauth-app.png
+.. image:: docs/manage.auth0.com.png
 
 
 SSO Endpoints
