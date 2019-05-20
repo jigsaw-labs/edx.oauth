@@ -75,6 +75,7 @@ Django model configuration: <LMS URI>/admin/third_party_auth/oauth2providerconfi
 .. image:: docs/django-good-oauth-config.png
 .. image:: docs/django-oauth-config-1.png
 .. image:: docs/django-oauth-config-2.png
+.. image:: docs/django-oauth-config-3.png
 
 
 Identity Provider System (https://manage.auth0.com)
